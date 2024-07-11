@@ -3,8 +3,15 @@ import 'package:learn_flutter/01_widget_rule/data/model/creator.dart';
 
 class CreatorProfile extends StatelessWidget {
   final Creator creator;
+  final void Function(Creator creator) onTap;
+  final bool isFollowing;
 
-  const CreatorProfile({super.key, required this.creator});
+  const CreatorProfile({
+    super.key,
+    required this.creator,
+    required this.onTap,
+    required this.isFollowing,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,18 +51,21 @@ class CreatorProfile extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.green,
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
+          InkWell(
+            onTap: () => onTap(creator),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.green,
+              ),
               child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'Follow',
-                  style: TextStyle(color: Colors.white),
+                padding: const EdgeInsets.all(8.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    isFollowing ? 'Following' : 'Follow',
+                    style: const TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             ),
